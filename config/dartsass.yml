@@ -1,0 +1,4 @@
+compilation:
+  adapter: dartsass
+  source_map: true
+  logger: true
