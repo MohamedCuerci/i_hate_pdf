@@ -414,3 +414,88 @@
 .tools-list .tools-list__item a:hover .zone-black {
   fill: #e5322d
 }
+
+
+// -----------------------------------------------------------------
+// FORMULARIO
+
+.pdf-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.pdf-header {
+  margin-bottom: 40px;
+}
+
+.pdf-header h1 {
+  // font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 42px;
+  line-height: 52px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto;
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.upload-box {
+  background-color: #f8f9fa;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 40px;
+  margin-top: 20px;
+}
+
+.file-input {
+  margin-bottom: 20px;
+}
+
+.submit-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #c82333;
+}
+
+.alert {
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 4px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.navbar-icon {
+  height: 35px;
+  width: auto; /* Ajuste o tamanho */
+  margin-right: 8px; /* Espaçamento entre o texto e o ícone */
+}

@@ -65,3 +65,7 @@ end
 gem "dartsass-rails", "~> 0.5.1"
 gem 'bootstrap', '~> 5.3.3'
 gem 'jquery-rails'
+
+# manipular pdf's
+gem 'combine_pdf', '~> 1.0', '>= 1.0.29'
+gem 'rubyzip'

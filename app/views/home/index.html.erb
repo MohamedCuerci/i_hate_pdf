@@ -5,4 +5,12 @@
     <h2 class="dale">Ferramenta online e completamente gratuita para juntar PDF, dividir PDF, comprimir PDF, converter documentos Office para PDF, conversão de PDF para JPG, e JPG para PDF. Faz poha toda.</h2>
 </div>
 
+<% if flash[:notice] %>
+    <div class="alert alert-success"><%= flash[:notice] %></div>
+  <% end %>
+  
+  <% if flash[:alert] %>
+    <div class="alert alert-error"><%= flash[:alert] %></div>
+  <% end %>
+
 <%= render "home/actions" %>

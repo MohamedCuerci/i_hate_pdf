@@ -1,0 +1,30 @@
+<div class="pdf-container">
+  <div class="pdf-header">
+    <h1>
+      <%= case @action_type 
+          when 'split' then 'Dividir arquivo PDF'
+          when 'merge' then 'Juntar arquivos PDF'
+          when 'convert' then 'Converter PDF'
+          end %>
+    </h1>
+
+    <p class="subtitle">
+      <%= case @action_type
+          when 'split' then 'Selecione um intervalo de páginas, separe uma página, ou converta cada página do documento em arquivo PDF independente.'
+          when 'merge' then 'Combine múltiplos arquivos PDF em um único documento.'
+          when 'convert' then 'Converta seu PDF para outros formatos.'
+          end %>
+    </p>
+  </div>
+
+  
+
+  <%= form_tag pdf_index_path, multipart: true, class: "upload-form" do %>
+    <div class="upload-box">
+      <%= hidden_field_tag :action_type, @action_type %>
+      <%= file_field_tag :pdf, accept: "application/pdf", class: "file-input" %>
+      <br>
+      <%= submit_tag "Processar PDF", data: { turbo: false }, class: "submit-button" %>
+    </div>
+  <% end %>
+</div>

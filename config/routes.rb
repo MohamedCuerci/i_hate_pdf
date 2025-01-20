@@ -12,4 +12,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Rotas específicas primeiro
+  get 'pdf/dividir_pdf', to: 'pdf#new', defaults: { action_type: 'split' }, as: :split_pdf
+  get 'pdf/juntar_pdf', to: 'pdf#new', defaults: { action_type: 'merge' }, as: :merge_pdf
+  # get 'pdf/convert', to: 'pdf#new', defaults: { action_type: 'convert' }, as: :convert_pdf
+
+  # Rota genérica depois
+  resources :pdf, only: [ :create ]
 end
