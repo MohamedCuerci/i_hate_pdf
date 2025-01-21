@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   # Rotas específicas primeiro
   get 'pdf/dividir_pdf', to: 'pdf#new', defaults: { action_type: 'split' }, as: :split_pdf
   get 'pdf/juntar_pdf', to: 'pdf#new', defaults: { action_type: 'merge' }, as: :merge_pdf
+  get 'pdf/comprimir_pdf', to: 'pdf#new', defaults: { action_type: 'compress' }, as: :compress_pdf
   # get 'pdf/convert', to: 'pdf#new', defaults: { action_type: 'convert' }, as: :convert_pdf
+ 
+  get 'download_pdf', to: 'pdf#download_pdf', as: :download_pdf # cuida para baixar o arquivo
+  get 'download', to: 'pdf#download', as: :download # apenas uma tela q sou redirecionado
 
   # Rota genérica depois
   resources :pdf, only: [ :create ]

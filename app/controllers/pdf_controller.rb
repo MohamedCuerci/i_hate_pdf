@@ -1,6 +1,6 @@
 require 'zip'
 class PdfController < ApplicationController
-  ALLOWED_ACTIONS = %w[split merge convert]
+  ALLOWED_ACTIONS = %w[split merge compress convert]
 
   def new
     @action_type = params[:action_type] # Pega o tipo de ação da URL
@@ -17,8 +17,6 @@ class PdfController < ApplicationController
         temp_dir = Rails.root.join('tmp', 'pdf_processing') # <Pathname:/home/cuerci/projetos/project_rails/adm_arquivos/i_hate_pdf/tmp/pdf_processing>
         FileUtils.mkdir_p(temp_dir) unless Dir.exist?(temp_dir) # cria i_hate_pdf/tmp/pdf_processing"
 
-        # debugger
-
         # input_pdf_path = temp_dir.join("input_#{SecureRandom.uuid}.pdf") # coloca um nome para o pdf anexado na pasta "pdf_processing"
         input_pdf_path = temp_dir.join(@original_filename) # coloca um nome para o pdf anexado na pasta "pdf_processing"
 
@@ -30,15 +28,28 @@ class PdfController < ApplicationController
           @output_filename = split_pdf(input_pdf_path, @original_filename)
 
           send_file(@output_filename, type: "application/zip", disposition: "attachment", filename: "iHatePdf.zip", stream: false)
-          return
+          # return
         when 'merge'
           @output_filename = merge_pdf(input_pdf_path)
+        when 'compress'
+          @output_filename = compress_pdf(input_pdf_path)
+
+          # Armazena os parâmetros na sessão
+          # deveria mudar para session[:pdf] =
+          # dessa forma seria algo generico reaproveitado em todas as funções
+          session[:compressed_pdf] = {
+            action: "compressed",
+            file_path: @output_filename,
+            filename: "#{@original_filename.gsub('.pdf', '_compressed.pdf')}"
+          }
+
+          redirect_to download_path # (file_path: @output_filename, filename: "#{@original_filename.gsub('.pdf', '_compressed.pdf')}")
         when 'convert'
           # output = convert_pdf(input_pdf_path, params[:format])
         end
 
         
-        redirect_to root_path, notice: 'PDF processado com sucesso!'
+        # redirect_to download_pdf_path, notice: 'PDF processado com sucesso!'
       ensure
         # garante q sempre seja deletado, embroa isso possa quebrar em alguns casos
         # add if por garantia
@@ -47,6 +58,36 @@ class PdfController < ApplicationController
       end
     else
       redirect_to new_pdf_path, alert: 'Por favor, selecione um arquivo PDF.'
+    end
+  end
+
+  # rota pro download
+  def download_pdf
+    compressed_pdf = session[:compressed_pdf]
+  
+    if compressed_pdf
+      send_file(compressed_pdf["file_path"], filename: compressed_pdf["filename"], type: "application/pdf")
+  
+      # Limpa a sessão após o envio do arquivo
+      # session.delete(:compressed_pdf)
+    else
+      # inves de ir pro root apenas mostrar a msg
+      redirect_to root_path, alert: "Arquivo não encontrado."
+    end
+  end
+  
+
+  def download
+    # Recupera os parâmetros da sessão
+    # compressed_pdf = session.delete(:compressed_pdf)
+    compressed_pdf = session[:compressed_pdf]
+  
+    if compressed_pdf
+      @file_path = compressed_pdf[:file_path]
+      @filename = compressed_pdf[:filename]
+    else
+      # inves de ir pro root apenas mostrar a msg
+      redirect_to root_path, alert: "Nenhum arquivo encontrado para download."
     end
   end
 
@@ -85,7 +126,29 @@ class PdfController < ApplicationController
     zip_file_path
   end
   
-
   def merge_pdf(input_pdf)
+  end
+
+  def compress_pdf(input_path)
+    output_path = input_path.sub('.pdf', '_compressed.pdf')
+    
+    settings = [
+      "-sDEVICE=pdfwrite",
+      "-dCompatibilityLevel=1.4",
+      "-dPDFSETTINGS=/screen",
+      "-dNOPAUSE",
+      "-dQUIET",
+      "-dBATCH",
+      "-sOutputFile=#{output_path}",
+      input_path
+    ]
+    
+    # /screen: menor qualidade, alta compressão.
+    # /ebook: qualidade média, boa compressão.
+    # /printer: qualidade alta, compressão moderada.
+    # /prepress: qualidade mais alta, compressão mínima.
+
+    system("gs #{settings.join(' ')}")
+    output_path
   end
 end

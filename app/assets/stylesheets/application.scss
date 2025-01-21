@@ -34,9 +34,9 @@
   }
 }
 
-.home-title__title {
-  font-weight: 600;
-  font-size: 42px;
+.home-title-title {
+  font-weight: 700;
+  font-size: 47px;
   line-height: 52px;
   color: #33333b;
   text-align: center;
@@ -59,10 +59,10 @@
 
 .dale {
   line-height: 32px;
-  font-size: 22px;
+  font-size: 25px;
   font-weight: 400;
   color: #47474f;
-  max-width: 980px;
+  max-width: 1000px;
   margin: auto auto 28px
 }
 
@@ -427,27 +427,45 @@
 }
 
 .pdf-header {
-  margin-bottom: 40px;
+  padding: 6px 24px 30px;
 }
 
-.pdf-header h1 {
-  // font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 15px;
-  font-weight: 600;
-  font-size: 42px;
+// .pdf-header h1 {
+//   // font-size: 2.5rem;
+//   color: #333;
+//   margin-bottom: 15px;
+//   font-weight: 600;
+//   font-size: 42px;
+//   line-height: 52px;
+//   text-align: center;
+// }
+
+.header-title {
+  font-weight: 700;
+  font-size: 50px;
   line-height: 52px;
+  color: #33333b;
   text-align: center;
 }
 
 .subtitle {
-  font-size: 1.1rem;
-  color: #666;
-  line-height: 1.5;
   max-width: 800px;
-  margin: 0 auto;
-  font-weight: 400;
+  margin: 8px auto 0;
   font-size: 22px;
+  line-height: 150%;
+  font-weight: 400;
+  color: #47474f;
+}
+
+h2 {
+  display: block;
+  // font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  // font-weight: bold;
+  unicode-bidi: isolate;
 }
 
 .upload-box {
@@ -463,13 +481,25 @@
 }
 
 .submit-button {
-  background-color: #dc3545;
-  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  min-width: 380px;
+  box-sizing: border-box;
+  padding: 24px 48px;
+  font-weight: 500;
+  font-size: 24px;
+  background: #e5322d;
+  line-height: 28px;
+  vertical-align: middle;
+  color: #fff !important;
+  text-decoration: none;
   border: none;
-  padding: 15px 30px;
-  border-radius: 25px;
-  font-size: 1.1rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .14);
   cursor: pointer;
+  max-width: 60vw;
 }
 
 .submit-button:hover {
@@ -498,4 +528,115 @@
   height: 35px;
   width: auto; /* Ajuste o tamanho */
   margin-right: 8px; /* Espaçamento entre o texto e o ícone */
+}
+
+// -------------------------------------------------------------------------------
+// page download
+
+
+.container-download {
+  max-width: 800px;
+  margin: 40px auto;
+  text-align: center;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.download-button {
+  background-color: #f1453d;
+  color: white;
+  min-height: 80px;
+  min-width: 330px;
+  padding: 24px 48px;
+  border-radius: 4px;
+  font-weight: 500;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 24px;
+  margin-bottom: 30px;
+  max-width: 60vw;
+  line-height: 28px;
+  vertical-align: middle;
+  transition: background-color .1s linear;
+}
+
+.stats-circle {
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats-info {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.percentage {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.file-sizes {
+  color: #666;
+  font-size: 14px;
+}
+
+.tools-section {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.tool-link {
+  text-decoration: none;
+  color: #333;
+  padding: 15px;
+  border-radius: 4px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.social-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.social-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
 }

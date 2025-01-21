@@ -1,0 +1,58 @@
+<div class="container-download">
+  <h1 class="title">Os PDFs foram comprimidos!</h1>
+  
+  <a href="<%= download_pdf_path(file_path: @file_path, filename: @filename) %>" class="download-button">
+    <i class="fa-solid fa-download"></i>Baixar o PDF otimizado
+  </a>
+  
+  <!--<div class="stats-circle">
+    <div class="percentage">59%</div>
+  </div>
+  
+  <div class="stats-info">
+    <div>Seus PDF estão agora 59% mais leves!</div>
+    <div class="file-sizes">51.28 KB → 21.32 KB</div>
+  </div>-->
+  
+  <div class="tools-section">
+    <h2 class="text-start" style="line-height: 20px; font-size: 16px; font-weight: 600;">Continuar para...</h2>
+    <div class="tools-grid">
+      <a href="#" class="tool-link">
+        <span>Juntar PDF</span>
+      </a>
+      <a href="#" class="tool-link">
+        <span>Dividir PDF</span>
+      </a>
+      <a href="#" class="tool-link">
+        <span>Inserir números de página</span>
+      </a>
+      <a href="#" class="tool-link">
+        <span>Inserir marca d'água</span>
+      </a>
+      <a href="#" class="tool-link">
+        <span>Rodar PDF</span>
+      </a>
+      <a href="#" class="tool-link">
+        <span>Proteger PDF</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="social-section">
+    <h3>Como você pode nos agradecer? Espalhe a notícia!</h3>
+    <p>Por favor, compartilhe a ferramenta para inspirar pessoas mais produtivas!</p>
+    <div class="social-buttons">
+      <a href="#" class="social-button"><i class="fa-solid fa-star" style="color: #63E6BE;"></i>Trustpilot</a>
+      <a href="#" class="social-button"><i class="fa-brands fa-facebook-f" style="color: #2c5aaa;"></i> Facebook</a>
+      <a href="#" class="social-button"><i class="fa-brands fa-x-twitter"></i> Twitter</a>
+      <a href="#" class="social-button"><i class="fa-brands fa-linkedin-in" style="color: #74C0FC;"></i> LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // window.onload = function() {
+  //   window.location.href = "<%= download_pdf_path(file_path: @file_path, filename: @filename) %>";
+  // };
+</script>
+

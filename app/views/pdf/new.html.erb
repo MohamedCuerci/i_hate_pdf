@@ -1,30 +1,42 @@
 <div class="pdf-container">
   <div class="pdf-header">
-    <h1>
-      <%= case @action_type 
-          when 'split' then 'Dividir arquivo PDF'
-          when 'merge' then 'Juntar arquivos PDF'
-          when 'convert' then 'Converter PDF'
-          end %>
-    </h1>
+    <% action_data = action_title_and_description(@action_type) %>
 
-    <p class="subtitle">
-      <%= case @action_type
-          when 'split' then 'Selecione um intervalo de páginas, separe uma página, ou converta cada página do documento em arquivo PDF independente.'
-          when 'merge' then 'Combine múltiplos arquivos PDF em um único documento.'
-          when 'convert' then 'Converta seu PDF para outros formatos.'
-          end %>
-    </p>
+    <h1 class="header-title"><%= action_data[:title] %></h1>
+
+    <p class="subtitle"><%= action_data[:description] %></p>
   </div>
 
-  
 
-  <%= form_tag pdf_index_path, multipart: true, class: "upload-form" do %>
-    <div class="upload-box">
+  <%= form_tag pdf_index_path, multipart: true, class: "upload-form", id: "upload-form" do %>
+    <div class="">
       <%= hidden_field_tag :action_type, @action_type %>
-      <%= file_field_tag :pdf, accept: "application/pdf", class: "file-input" %>
-      <br>
-      <%= submit_tag "Processar PDF", data: { turbo: false }, class: "submit-button" %>
+
+      <!-- Campo de upload de arquivo (oculto para o botão customizado) -->
+      <%= file_field_tag :pdf, accept: "application/pdf", class: "file-input", id: "file-input", style: "display:none;" %>
+
+      <!-- Botão customizado -->
+      <button type="button" class="submit-button" id="upload-button">Selecionar arquivo PDF</button>
     </div>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const uploadButton = document.getElementById("upload-button");
+    const fileInput = document.getElementById("file-input");
+    const form = document.getElementById("upload-form");
+
+    // Quando o botão de upload é clicado, ativa o campo de seleção de arquivo
+    uploadButton.addEventListener("click", function() {
+      fileInput.click(); // Simula o clique no campo de upload de arquivo
+    });
+
+    // Quando um arquivo é selecionado, envia o formulário automaticamente
+    fileInput.addEventListener("change", function() {
+      if (fileInput.files.length > 0) {
+        form.submit(); // Envia o formulário automaticamente
+      }
+    });
+  });
+</script>
