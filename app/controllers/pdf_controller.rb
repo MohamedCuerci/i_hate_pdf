@@ -27,8 +27,13 @@ class PdfController < ApplicationController
         when 'split'
           @output_filename = split_pdf(input_pdf_path, @original_filename)
 
-          send_file(@output_filename, type: "application/zip", disposition: "attachment", filename: "iHatePdf.zip", stream: false)
-          # return
+          session[:pdf] = {
+            action: "split",
+            file_path: @output_filename,
+            filename: "iHatePdf.zip"
+          }
+
+          redirect_to download_path
         when 'merge'
           @output_filename = merge_pdf(input_pdf_path)
         when 'compress'
@@ -37,7 +42,7 @@ class PdfController < ApplicationController
           # Armazena os parâmetros na sessão
           # deveria mudar para session[:pdf] =
           # dessa forma seria algo generico reaproveitado em todas as funções
-          session[:compressed_pdf] = {
+          session[:pdf] = {
             action: "compressed",
             file_path: @output_filename,
             filename: "#{@original_filename.gsub('.pdf', '_compressed.pdf')}"
@@ -63,10 +68,15 @@ class PdfController < ApplicationController
 
   # rota pro download
   def download_pdf
-    compressed_pdf = session[:compressed_pdf]
+    session_pdf = session[:pdf]
   
-    if compressed_pdf
-      send_file(compressed_pdf["file_path"], filename: compressed_pdf["filename"], type: "application/pdf")
+    if session_pdf
+      case session_pdf["action"]
+      when 'split'
+        send_file(session_pdf["file_path"], filename: session_pdf["filename"], type: "application/zip")
+      when 'compressed'
+        send_file(session_pdf["file_path"], filename: session_pdf["filename"], type: "application/pdf")
+      end
   
       # Limpa a sessão após o envio do arquivo
       # session.delete(:compressed_pdf)
@@ -80,11 +90,11 @@ class PdfController < ApplicationController
   def download
     # Recupera os parâmetros da sessão
     # compressed_pdf = session.delete(:compressed_pdf)
-    compressed_pdf = session[:compressed_pdf]
+    session_pdf = session[:pdf]
   
-    if compressed_pdf
-      @file_path = compressed_pdf[:file_path]
-      @filename = compressed_pdf[:filename]
+    if session_pdf
+      @file_path = session_pdf[:file_path]
+      @filename = session_pdf[:filename]
     else
       # inves de ir pro root apenas mostrar a msg
       redirect_to root_path, alert: "Nenhum arquivo encontrado para download."

@@ -22,11 +22,13 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const uploadButton = document.getElementById("upload-button");
-    const fileInput = document.getElementById("file-input");
-    const form = document.getElementById("upload-form");
+  document.addEventListener("turbo:load", function() {
+  const uploadButton = document.getElementById("upload-button");
+  const fileInput = document.getElementById("file-input");
+  const form = document.getElementById("upload-form");
 
+  if (uploadButton && fileInput && form) {
+    console.log("aqui");
     // Quando o botão de upload é clicado, ativa o campo de seleção de arquivo
     uploadButton.addEventListener("click", function() {
       fileInput.click(); // Simula o clique no campo de upload de arquivo
@@ -38,5 +40,7 @@
         form.submit(); // Envia o formulário automaticamente
       }
     });
-  });
+  }
+});
+
 </script>
